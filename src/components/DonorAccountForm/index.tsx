@@ -5,8 +5,10 @@ import {
 	Form,
 	Field,
 	FieldProps,
-} from 'formik';
-import './index.css';
+} from "formik";
+import SlideToggle from "../shared/SlideToggle";
+import TextField from "../shared/TextField";
+import "./index.css";
 
 interface DonorAccount {
 	isCompany: boolean;
@@ -21,12 +23,12 @@ interface DonorAccount {
 const DonorAccountForm = () => {
 	const initialValues: DonorAccount = {
 		isCompany: false,
-		firstName: '',
-		lastName: '',
-		company: '',
-		email: '',
-		address: '',
-		phone: '',
+		firstName: "",
+		lastName: "",
+		company: "",
+		email: "",
+		address: "",
+		phone: "",
 	};
 
 	const handleSubmit = (
@@ -40,8 +42,10 @@ const DonorAccountForm = () => {
 	};
 
 	return (
-		<h2>
-			<>Donor Account</>
+		<>
+			<h2>
+				<>Donor Account </>
+			</h2>
 
 			<Formik
 				initialValues={initialValues}
@@ -51,61 +55,31 @@ const DonorAccountForm = () => {
 			>
 				{({ isSubmitting, isValidating, values }) => (
 					<Form>
-						{/* <Field id="isCompany" name="isCompany" /> */}
-						{/* <label className="switch"> */}
-						<label className="switch">
-							<Field
-								id="isCompany"
-								name="isCompany"
-								type="checkbox"
-								checked={values.isCompany}
-							/>
-							<span className="slider round"></span>
-						</label>
-
-						<label htmlFor="firstName">First Name</label>
-						<Field
-							id="firstName"
-							name="firstName"
-							placeholder="First Name"
+						<SlideToggle
+							id="isCompany"
+							name="isCompany"
+							isChecked={values.isCompany}
 						/>
 
-						<label htmlFor="lastName">Last Name</label>
-						<Field
-							id="lastName"
-							name="lastName"
-							placeholder="Last Name"
-						/>
+						<TextField id="firstName" name="firstName" placeholder="First Name" />
 
-						<label htmlFor="email">Email</label>
-						<Field id="email" name="email" placeholder="Email" />
+						<TextField id="lastName" name="lastName" placeholder="Last Name" />
 
-						<label htmlFor="phone">Phone</label>
-						<Field id="phone" name="phone" placeholder="Phone" />
+						<TextField id="email" name="email" placeholder="Email" />
 
-						<label htmlFor="address">Address</label>
-						<Field
-							id="address"
-							name="address"
-							placeholder="Address"
-						/>
+						<TextField id="phone" name="phone" placeholder="Phone" />
 
-						<label htmlFor="company">Company</label>
-						<Field
-							id="company"
-							name="company"
-							placeholder="Company"
-						/>
-						<button
-							disabled={isValidating && isSubmitting}
-							type="submit"
-						>
+						<TextField id="address" name="address" placeholder="Address" />
+
+						<TextField id="company" name="company" placeholder="Company" />
+
+						<button className="button" disabled={isValidating && isSubmitting} type="submit">
 							Submit
 						</button>
 					</Form>
 				)}
 			</Formik>
-		</h2>
+		</>
 	);
 };
 export default DonorAccountForm;
