@@ -13,3 +13,12 @@
   cursor: pointer;
   opacity: 0.7;
 }
+
+.button:disabled {
+  background-color: #cdcdcd;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}

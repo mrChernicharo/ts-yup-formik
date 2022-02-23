@@ -9,10 +9,11 @@ interface SlideToggleProps {
 
 const SlideToggle = ({ id, name, isChecked }: SlideToggleProps) => {
 	return (
-		<label className="switch">
-			<Field id={id} name={name} type="checkbox" checked={isChecked} />
-			<span className="slider round"></span>
-		</label>
+		<><span>{name}</span>
+			<label className="switch">
+				<Field id={id} name={name} type="checkbox" checked={isChecked} />
+				<span className="slider round"></span>
+			</label></>
 	);
 };
 
