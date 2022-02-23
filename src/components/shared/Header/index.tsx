@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import './index.css';
 
 const Header = () => {
 	const routes = [
@@ -7,14 +8,16 @@ const Header = () => {
 		{ name: 'Donor Account', path: '/donor/account' },
 	];
 	return (
-		<>
+		<div className="header-container">
 			<h2>Formik Yup</h2>
 			<>
 				{routes.map(route => (
-					<Link to={route.path}>{route.name}</Link>
+					<Link key={route.name} to={route.path}>
+						{route.name}
+					</Link>
 				))}
 			</>
-		</>
+		</div>
 	);
 };
 

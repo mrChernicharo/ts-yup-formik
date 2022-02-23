@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import DonorAccountForm from './components/DonorAccountForm';
 import Header from './components/shared/Header';
 import './globals.css';
 
@@ -19,11 +20,7 @@ function Router() {
 					/>
 					<Route
 						path="/donor/account"
-						element={
-							<h2>
-								<>Donor Account</>
-							</h2>
-						}
+						element={<DonorAccountForm />}
 					/>
 					<Route
 						path="/donation/new"
