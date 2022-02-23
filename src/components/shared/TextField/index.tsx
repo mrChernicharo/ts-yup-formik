@@ -1,5 +1,5 @@
 import { Field } from "formik";
-import React from "react";
+import { capitalize } from '../../../utils/functions'
 
 interface Props {
   id: string,
@@ -10,7 +10,7 @@ interface Props {
 const TextField = ({ name, id, placeholder }: Props) => {
   return (
     <>
-      <label htmlFor={name}>First Name</label>
+      <label htmlFor={name}>{capitalize(name)}</label>
       <Field id={id} name={name} placeholder={placeholder} />
     </>
   );

@@ -6,30 +6,12 @@ import {
 	Field,
 	FieldProps,
 } from "formik";
+import { DonorAccount, initialValues } from "../../utils/constants";
 import SlideToggle from "../shared/SlideToggle";
 import TextField from "../shared/TextField";
 import "./index.css";
 
-interface DonorAccount {
-	isCompany: boolean;
-	firstName: string;
-	lastName: string;
-	company: string;
-	email: string;
-	address: string;
-	phone: string;
-}
-
 const DonorAccountForm = () => {
-	const initialValues: DonorAccount = {
-		isCompany: false,
-		firstName: "",
-		lastName: "",
-		company: "",
-		email: "",
-		address: "",
-		phone: "",
-	};
 
 	const handleSubmit = (
 		values: DonorAccount,
@@ -48,7 +30,7 @@ const DonorAccountForm = () => {
 			</h2>
 
 			<Formik
-				initialValues={initialValues}
+				initialValues={initialValues.DONOR_ACCOUNT}
 				onSubmit={(values, actions) => {
 					handleSubmit(values, actions);
 				}}
