@@ -4,6 +4,7 @@ import './index.css';
 const Header = () => {
 	const routes = [
 		{ name: 'Home', path: '/' },
+		{ name: 'Login', path: '/login' },
 		{ name: 'New Donation', path: '/donation/new' },
 		{ name: 'Donor Account', path: '/donor/account' },
 	];

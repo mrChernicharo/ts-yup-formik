@@ -6,51 +6,62 @@ import {
 	Field,
 	FieldProps,
 	yupToFormErrors,
-} from "formik";
-import { useMemo } from "react";
+} from 'formik';
+import { useMemo } from 'react';
 import * as yup from 'yup';
-import { DonorAccount, initialValues } from "../../utils/constants";
-import PhoneField from "../shared/PhoneField";
-import SlideToggle from "../shared/SlideToggle";
-import TextField from "../shared/TextField";
-import "./index.css";
+import { DonorAccount, initialValues } from '../../utils/constants';
+import PhoneField from '../shared/PhoneField';
+import SlideToggle from '../shared/SlideToggle';
+import TextField from '../shared/TextField';
+import './index.css';
 
 let schema = yup.object({
-	firstName: yup.string(),
-	lastName: yup.string(),
-	company: yup.string(),
-	email: yup.string().required().email(),
+	firstName: yup
+		.string()
+		.when('isCompany', { is: false, then: yup.string().required() }),
+	lastName: yup
+		.string()
+		.when('isCompany', { is: false, then: yup.string().required() }),
+	company: yup
+		.string()
+		.when('isCompany', { is: true, then: yup.string().required() }),
+	email: yup.string().email().required('We need your Email, pal!'),
 	isCompany: yup.boolean().required(),
-	phone: yup.number().required(),
-	address: yup.string().required()
-})
-const DonorAccountForm = () => {
+	phone: yup.number().min(6).required('we need your Phone number'),
+	address: yup.string().required('we need your address'),
+});
 
-	const handleSubmit = async (values: DonorAccount, actions: FormikHelpers<DonorAccount>) => {
+const DonorAccountForm = () => {
+	const handleSubmit = async (
+		values: DonorAccount,
+		actions: FormikHelpers<DonorAccount>
+	) => {
 		console.log({ values, actions });
 
-		let submitData;
+		let submitData: any = null;
 		if (values.isCompany)
-			submitData = { ...values, firstName: "", lastName: "" }
-		else
-			submitData = { ...values, company: "" };
+			submitData = { ...values, firstName: '', lastName: '' };
+		else submitData = { ...values, company: '' };
 
-		actions.setSubmitting(true)
+		actions.setSubmitting(true);
+		console.log('submitting!');
 
-		// alert(JSON.stringify(submitData, null, 2));
-		setTimeout(() => actions.setSubmitting(false), 600);
-		console.log({ submitData })
-
+		setTimeout(() => {
+			console.log({ submitData });
+			// alert(JSON.stringify(submitData, null, 2));
+			actions.setSubmitting(false);
+		}, 600);
 	};
 
-	const onUpdate = useMemo(() => (values: DonorAccount) => {
-		// console.log(values)
-		// schema.validate(values, { recursive: true }).then(result => {
-
-		// }).catch(err => {
-
-		// })
-	}, [])
+	const onUpdate = useMemo(
+		() => (values: DonorAccount) => {
+			// console.log(values)
+			// schema.validate(values, { recursive: true }).then(result => {
+			// }).catch(err => {
+			// })
+		},
+		[]
+	);
 
 	return (
 		<>
@@ -62,30 +73,80 @@ const DonorAccountForm = () => {
 				initialValues={initialValues.DONOR_ACCOUNT}
 				validationSchema={schema}
 				onSubmit={(values, actions) => handleSubmit(values, actions)}
-				validate={onUpdate}
+				// validate={onUpdate}
 			>
-				{({ values, isValidating, isSubmitting, errors, touched, isValid }: FormikProps<DonorAccount>) => {
+				{({
+					values,
+					isValidating,
+					isSubmitting,
+					errors,
+					touched,
+					isValid,
+				}: FormikProps<DonorAccount>) => {
 					return (
 						<Form className="form">
-
-
 							<SlideToggle
 								id="isCompany"
 								name="isCompany"
-								isChecked={values.isCompany}
+								checked={values.isCompany}
 							/>
 							{!values.isCompany && (
 								<>
-									<TextField id="firstName" name="firstName" label="First name" placeholder="First Name" />
-									<TextField id="lastName" name="lastName" label="Last name" placeholder="Last Name" />
+									<TextField
+										id="firstName"
+										name="firstName"
+										label="First name"
+										placeholder="First Name"
+										error={
+											!!touched.firstName &&
+											!!errors.firstName
+										}
+										errorMessage={errors.firstName}
+									/>
+									<TextField
+										id="lastName"
+										name="lastName"
+										label="Last name"
+										placeholder="Last Name"
+										error={
+											!!touched.lastName &&
+											!!errors.lastName
+										}
+										errorMessage={errors.lastName}
+									/>
 								</>
 							)}
 							{values.isCompany && (
-								<TextField id="company" name="company" label="Company name" placeholder="Company Name" />
+								<TextField
+									id="company"
+									name="company"
+									label="Company name"
+									placeholder="Company Name"
+								/>
 							)}
-							<TextField id="email" name="email" label="Email" placeholder="Email" error={errors.email} />
-							<PhoneField id="phone" name="phone" label="Phone" placeholder="555-5555" error={errors.phone} />
-							<TextField id="address" name="address" label="Adress" placeholder="Address" error={errors.address} />
+							<TextField
+								id="email"
+								name="email"
+								label="Email"
+								placeholder="Email"
+								error={!!touched.email && !!errors.email}
+								errorMessage={errors.email}
+							/>
+							<PhoneField
+								id="phone"
+								name="phone"
+								label="Phone"
+								placeholder="555-5555"
+								error={touched.phone && !!errors.phone}
+								errorMessage={errors.phone}
+							/>
+							<TextField
+								id="address"
+								name="address"
+								label="Adress"
+								placeholder="Address"
+								error={!!touched.address && !!errors.address}
+							/>
 
 							<button
 								type="submit"
@@ -95,12 +156,21 @@ const DonorAccountForm = () => {
 								Submit
 							</button>
 
-
-							<div>Form {isValid ? 'valid' : 'invalid'}</div>
-							<div>Touched: {JSON.stringify(Object.keys(touched))}</div>
-							<div>Errored Fields: {JSON.stringify(Object.keys(errors))}</div>
+							<div className="values">
+								<div>Form {isValid ? 'valid' : 'invalid'}</div>
+								<div>
+									Touched:{' '}
+									{JSON.stringify(Object.keys(touched))
+										.replace(/(\"|\[|\])/g, '')
+										.replace(/,/g, ', ')}
+								</div>
+								<div>
+									Errored Fields:{' '}
+									{JSON.stringify(Object.keys(errors))}
+								</div>
+							</div>
 						</Form>
-					)
+					);
 				}}
 			</Formik>
 		</>

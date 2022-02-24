@@ -4,16 +4,18 @@ import './index.css';
 interface SlideToggleProps {
 	id: string;
 	name: string;
-	isChecked: boolean;
+	checked: boolean;
 }
 
-const SlideToggle = ({ id, name, isChecked }: SlideToggleProps) => {
+const SlideToggle = ({ id, name, checked }: SlideToggleProps) => {
 	return (
-		<><span>{name}</span>
+		<>
+			<span>{name}</span>
 			<label className="switch">
-				<Field id={id} name={name} type="checkbox" checked={isChecked} />
+				<Field id={id} name={name} type="checkbox" checked={checked} />
 				<span className="slider round"></span>
-			</label></>
+			</label>
+		</>
 	);
 };
 
