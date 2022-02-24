@@ -1,5 +1,5 @@
-import { useState } from 'react';
-
+import React, { useEffect, useState } from 'react';
+import './index.css';
 interface IFadeProps {
 	shouldHide: boolean;
 	children: React.ReactNode;
@@ -11,9 +11,11 @@ export const Fade: React.FC<IFadeProps> = ({
 }: IFadeProps) => {
 	const [isHidden, setIsHidden] = useState(false);
 
-	return (
-		<div className={shouldHide ? 'fading' : ''}>
-			{!shouldHide && children}
-		</div>
-	);
+	useEffect(() => {
+		shouldHide
+			? setIsHidden(shouldHide)
+			: setTimeout(() => setIsHidden(shouldHide), 400);
+	}, [shouldHide]);
+
+	return <div className={!isHidden ? 'fading' : 'appearing'}>{children}</div>;
 };

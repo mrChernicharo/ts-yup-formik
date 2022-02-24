@@ -10,6 +10,7 @@ import {
 import { useMemo } from 'react';
 import * as yup from 'yup';
 import { DonorAccount, initialValues } from '../../utils/constants';
+import { Fade } from '../shared/Fade';
 import PhoneField from '../shared/PhoneField';
 import SlideToggle from '../shared/SlideToggle';
 import TextField from '../shared/TextField';
@@ -90,40 +91,42 @@ const DonorAccountForm = () => {
 								name="isCompany"
 								checked={values.isCompany}
 							/>
-							{!values.isCompany && (
-								<>
-									<TextField
-										id="firstName"
-										name="firstName"
-										label="First name"
-										placeholder="First Name"
-										error={
-											!!touched.firstName &&
-											!!errors.firstName
-										}
-										errorMessage={errors.firstName}
-									/>
-									<TextField
-										id="lastName"
-										name="lastName"
-										label="Last name"
-										placeholder="Last Name"
-										error={
-											!!touched.lastName &&
-											!!errors.lastName
-										}
-										errorMessage={errors.lastName}
-									/>
-								</>
-							)}
-							{values.isCompany && (
+							{/* 
+							<Fade shouldHide={values.isCompany}>
+								<h3>Company</h3>
+							</Fade> */}
+
+							<Fade shouldHide={!values.isCompany}>
+								<TextField
+									id="firstName"
+									name="firstName"
+									label="First name"
+									placeholder="First Name"
+									error={
+										!!touched.firstName &&
+										!!errors.firstName
+									}
+									errorMessage={errors.firstName}
+								/>
+								<TextField
+									id="lastName"
+									name="lastName"
+									label="Last name"
+									placeholder="Last Name"
+									error={
+										!!touched.lastName && !!errors.lastName
+									}
+									errorMessage={errors.lastName}
+								/>
+							</Fade>
+							<Fade shouldHide={values.isCompany}>
 								<TextField
 									id="company"
 									name="company"
 									label="Company name"
 									placeholder="Company Name"
 								/>
-							)}
+							</Fade>
 							<TextField
 								id="email"
 								name="email"
