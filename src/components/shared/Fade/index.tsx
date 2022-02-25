@@ -28,7 +28,13 @@ export const Fade: React.FC<IFadeProps> = ({
 
 	useEffect(() => {
 		setCurrentState(!fade ? "faded" : "built");
-		console.log(id)
+		const el = document.querySelector(`#${id}`)
+		if (el) {
+			const { height, width } = el.getBoundingClientRect() as DOMRect
+			console.log(height, width)
+			setWidth(width)
+			setHeight(height)
+		}
 	}, [])
 
 	useEffect(() => {
@@ -38,9 +44,11 @@ export const Fade: React.FC<IFadeProps> = ({
 	return (
 		<>
 			{id && <div id={id} className={`${currentState} fade-container`}>
-				{children}
+				<>
+					{children}
+				</>
+				<div style={{ height, width }} className={`${currentState} layer`}></div>
 			</div>}
-			<div className={`${currentState} layer`}></div>
 		</>
 	);
 };
