@@ -1,3 +1,20 @@
+.field-container {
+  display: flex;
+  padding-block: 0.5rem;
+  padding-inline: 0.5rem;
+  flex-direction: column;
+  width: 100%;
+}
+
+.field-container label {
+  font-size: 0.75rem;
+}
+
+.field-container input {
+  border-radius: 0.25rem;
+  width: calc(100% - 1.5rem);
+}
+
 .error-message {
   font-size: 1rem;
   color: var(--danger);

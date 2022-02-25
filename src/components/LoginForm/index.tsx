@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { DonorAccount, initialValues, LoginInfo } from '../../utils/constants';
 import './index.css';
 
-interface ILoginFormProps {}
+interface ILoginFormProps { }
 const takenEmails = ['test@gmail.com', 'test2@gmail.com', 'test3@gmail.com'];
 
 let schema = yup.object({
@@ -63,6 +63,7 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
 					// onFocus={handleFocus}
 					// onWheel={handleWheel}
 					value={formik.values.firstName}
+					autoComplete="on"
 				/>
 				<span className="error-msg">
 					{formik.touched.firstName && formik.errors.firstName ? (
@@ -78,6 +79,7 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
 					onChange={formik.handleChange}
 					onBlur={formik.handleBlur}
 					value={formik.values.lastName}
+					autoComplete="on"
 				/>
 				{formik.touched.lastName && formik.errors.lastName ? (
 					<div>
@@ -95,6 +97,7 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
 					onChange={formik.handleChange}
 					onBlur={formik.handleBlur}
 					value={formik.values.email}
+					autoComplete="on"
 				/>
 				<span className="error-msg">
 					{formik.touched.email && formik.errors.email ? (
@@ -110,6 +113,7 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
 					onChange={formik.handleChange}
 					onBlur={formik.handleBlur}
 					value={formik.values.password}
+					autoComplete="off"
 				/>
 				<span className="error-msg">
 					{formik.touched.password && formik.errors.password && (
@@ -125,6 +129,7 @@ const LoginForm: React.FC<ILoginFormProps> = props => {
 					onChange={formik.handleChange}
 					onBlur={formik.handleBlur}
 					value={formik.values.confirmation}
+					autoComplete="off"
 				/>
 				<span className="error-msg">
 					{formik.touched.confirmation &&

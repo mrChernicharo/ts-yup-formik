@@ -7,6 +7,7 @@ import {
 	FieldProps,
 	yupToFormErrors,
 } from 'formik';
+import { nanoid } from 'nanoid';
 import { useMemo } from 'react';
 import * as yup from 'yup';
 import { DonorAccount, initialValues } from '../../utils/constants';
@@ -74,7 +75,7 @@ const DonorAccountForm = () => {
 				initialValues={initialValues.DONOR_ACCOUNT}
 				validationSchema={schema}
 				onSubmit={(values, actions) => handleSubmit(values, actions)}
-				// validate={onUpdate}
+			// validate={onUpdate}
 			>
 				{({
 					values,
@@ -92,11 +93,11 @@ const DonorAccountForm = () => {
 								checked={values.isCompany}
 							/>
 							{/* 
-							<Fade shouldHide={values.isCompany}>
+							<Fade fade={values.isCompany}>
 								<h3>Company</h3>
 							</Fade> */}
 
-							<Fade shouldHide={!values.isCompany}>
+							<Fade name='names' id={nanoid()} fade={!values.isCompany}>
 								<TextField
 									id="firstName"
 									name="firstName"
@@ -119,7 +120,7 @@ const DonorAccountForm = () => {
 									errorMessage={errors.lastName}
 								/>
 							</Fade>
-							<Fade shouldHide={values.isCompany}>
+							<Fade name='company' id={nanoid()} fade={values.isCompany}>
 								<TextField
 									id="company"
 									name="company"

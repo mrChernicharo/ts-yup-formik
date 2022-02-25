@@ -1,26 +1,42 @@
+.fade-container {
+  background-color: red;
+}
+
+.layer {
+  background-color: purple;
+}
+
+.building {
+  background-color: yellow;
+}
+.built {
+  background-color: green;
+}
 .fading {
-	animation: fading 0.5s forwards;
-	display: none;
+  /* animation: fading 0.5s forwards; */
+  /* display: none; */
+  background-color: blue;
 }
-.appearing {
-	animation: appearing 0.5s;
-	display: flex;
-	flex-direction: column;
+.faded {
+  background-color: black;
+  /* border-color: red; */
+  /* animation: appearing 0.5s; */
+  /* display: flex; */
+  /* flex-direction: column; */
 }
-@keyframes fading {
-	0% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-		height: 0;
-	}
-}
-@keyframes appearing {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
+/* @keyframes fading {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+} */
+/* @keyframes appearing {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+} */
